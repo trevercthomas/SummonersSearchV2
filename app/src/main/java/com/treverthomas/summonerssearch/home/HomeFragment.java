@@ -21,8 +21,6 @@ public class HomeFragment extends Fragment {
     private String mTitle;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-
     private TextView titleView;
 
     public HomeFragment() {
@@ -50,6 +48,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //TODO: remove setting views for data binding
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         titleView = (TextView) view.findViewById(R.id.textView);
         titleView.setText(mTitle);
@@ -57,32 +56,19 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        //TODO: start loading content
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }
