@@ -24,5 +24,12 @@
             android:layout_height="wrap_content"
             android:text="Test"/>
 
+        <!--Reusable Profile?-->
+        <!--Anonymous is blank icon with "no profile set" and set profile button-->
+
+        <!--Reusuable recent searches if optional-->
+
+        <!--Reausuable Recent Games if Profile is set-->
+
     </com.treverthomas.summonerssearch.home.HomeView>
 </layout>
