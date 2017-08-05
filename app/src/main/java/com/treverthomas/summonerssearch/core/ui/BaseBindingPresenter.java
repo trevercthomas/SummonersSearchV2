@@ -4,8 +4,9 @@ import android.databinding.Observable;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 /**
  * This class abstracts handles updating a view model. The presenter is instantiated by a View.
@@ -25,26 +26,27 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class BaseBindingPresenter<VM extends Observable> {
 
-    private CompositeSubscription subscriptions;
+    private CompositeDisposable disposables;
     private VM viewModel;
 
     /**
      * Set this to true if you need to track whether the presenter has loaded.
      * Will be set to false on detach.
      */
+    @SuppressWarnings("WeakerAccess")
     protected boolean hasLoaded;
 
 
     /**
      * Attach the view model to the presenter.
      * <p/>
-     * Runs any code found in the load method. Instantiates the CompositeSubscription field
+     * Runs any code found in the load method. Instantiates the CompositeDisposable field
      * <p/>
      * If overridden, must call super.attach(VM viewModel)
      *
      * @param viewModel An instantiated {@link VM} that the presenter will update
      * @see #load()
-     * @see CompositeSubscription
+     * @see CompositeDisposable
      */
     @CallSuper
     public void attach(@NonNull final VM viewModel) {
@@ -57,12 +59,12 @@ public abstract class BaseBindingPresenter<VM extends Observable> {
     /**
      * Detach the viewmodel and pause.
      * <p/>
-     * Null out the view model. Unsubscribes from all subscriptions added in addSubscription.
+     * Null out the view model. Dispose all disposables added in addDisposable.
      * <p/>
      * If overridden, must call super.detach()
      *
-     * @see #addSubscription(Subscription)
-     * @see Subscription
+     * @see #addDisposable(Disposable)
+     * @see CompositeDisposable
      */
     @CallSuper
     public void detach() {
@@ -89,18 +91,18 @@ public abstract class BaseBindingPresenter<VM extends Observable> {
     }
 
     private void onResume() {
-        if (subscriptions != null) {
-            subscriptions.unsubscribe();
+        if (disposables != null && !disposables.isDisposed()) {
+            disposables.dispose();
         }
 
-        this.subscriptions = new CompositeSubscription();
+        this.disposables = new CompositeDisposable();
         load();
     }
 
     private void onPause() {
         unload();
-        if (subscriptions != null) {
-            subscriptions.unsubscribe();
+        if (disposables != null && !disposables.isDisposed()) {
+            disposables.dispose();
         }
         hasLoaded = false;
     }
@@ -111,7 +113,7 @@ public abstract class BaseBindingPresenter<VM extends Observable> {
      * <p/>
      * This is where you would add subscriptions
      */
-    public abstract void load();
+    protected abstract void load();
 
     /**
      * Runs when detached from view model. Add any cleanup code here.
@@ -121,24 +123,25 @@ public abstract class BaseBindingPresenter<VM extends Observable> {
     }
 
     /**
-     * Adds a subscription to the <code>Composite Subscription</code>. If the composite
-     * is unsubscribed (added after detach), this subscription will unsubscribe as well.
+     * Adds a disposable to the <code>Composite Disposable</code>. If the composite
+     * is disposed (added after detach), this disposable will dispose as well.
      *
-     * @param subscription A {@link Subscription}
-     * @see CompositeSubscription
+     * @param subscription A {@link Disposable}
+     * @see CompositeDisposable
      */
-    public final void addSubscription(final Subscription subscription) {
-        subscriptions.add(subscription);
+    @SuppressWarnings("WeakerAccess")
+    public final void addDisposable(final Disposable subscription) {
+        disposables.add(subscription);
     }
 
     /**
-     * Removes a subscription from the <code>Composite Subscription</code> and unsubscribes.
+     * Removes a disposable from the <code>Composite Disposable</code> and dispose.
      *
-     * @param subscription A {@link Subscription}
-     * @see CompositeSubscription
+     * @param subscription A {@link Disposable}
+     * @see CompositeDisposable
      */
-    public final void removeSubscription(final Subscription subscription) {
-        subscriptions.remove(subscription);
+    public final void removeDisposable(final Disposable subscription) {
+        disposables.remove(subscription);
     }
 
 }

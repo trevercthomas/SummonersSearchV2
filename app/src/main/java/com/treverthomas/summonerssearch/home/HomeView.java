@@ -65,6 +65,7 @@ public class HomeView extends RelativeLayout {
         if (isInEditMode()) {
             return;
         }
+
         homePresenter.detach();
     }
 

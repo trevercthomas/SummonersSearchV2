@@ -21,7 +21,7 @@ public class ProfilePresenter  extends BaseBindingPresenter<ProfileView.ProfileV
     }
 
     @Override
-    public void load() {
+    protected void load() {
         if (!hasViewModel()) {
             return;
         }

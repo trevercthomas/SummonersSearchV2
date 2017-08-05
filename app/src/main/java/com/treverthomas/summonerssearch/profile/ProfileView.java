@@ -80,6 +80,6 @@ public class ProfileView extends RelativeLayout {
 
     public void onTest(final View view) {
         boolean isSet = viewModel.profileSet.get();
-        viewModel.profileSet.set(isSet ? false : true);
+        viewModel.profileSet.set(!isSet);
     }
 }
