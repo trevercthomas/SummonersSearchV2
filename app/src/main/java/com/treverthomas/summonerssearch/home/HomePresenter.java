@@ -7,7 +7,7 @@ import com.treverthomas.summonerssearch.profile.ProfilePresenter;
 import javax.inject.Inject;
 
 /**
- * Created by trever.thomas on 2/18/17.
+ * Home View Presenter for loading base summoner data
  */
 
 @PerActivity

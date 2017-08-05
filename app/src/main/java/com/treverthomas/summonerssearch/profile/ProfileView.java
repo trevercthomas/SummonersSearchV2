@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.databinding.BaseObservable;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.treverthomas.summonerssearch.ProfileViewBinding;
@@ -58,6 +60,7 @@ public class ProfileView extends RelativeLayout {
         viewModel = new ProfileViewModel();
         binding = DataBindingUtil.bind(this);
         binding.setViewModel(viewModel);
+        binding.setListener(this);
         profilePresenter.attach(viewModel);
     }
 
@@ -72,5 +75,11 @@ public class ProfileView extends RelativeLayout {
 
     public class ProfileViewModel extends BaseObservable {
         public final ObservableField<String> summonerName = new ObservableField<>();
+        public final ObservableBoolean profileSet = new ObservableBoolean(true);
+    }
+
+    public void onTest(final View view) {
+        boolean isSet = viewModel.profileSet.get();
+        viewModel.profileSet.set(isSet ? false : true);
     }
 }

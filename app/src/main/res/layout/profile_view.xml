@@ -6,19 +6,59 @@
             name="viewModel"
             type="com.treverthomas.summonerssearch.profile.ProfileView.ProfileViewModel"/>
 
+        <variable
+            name="listener"
+            type="com.treverthomas.summonerssearch.profile.ProfileView"/>
+
     </data>
 
     <com.treverthomas.summonerssearch.profile.ProfileView
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray">
+
+        <LinearLayout
+            android:id="@+id/empty_profile"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            app:isGone="@{viewModel.profileSet}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_profile"
+                android:layout_gravity="center_vertical"
+                android:textSize="18sp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set"
+
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
 
         <TextView
+            android:id="@+id/summonerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.summonerName}"/>
+            android:text="@{viewModel.summonerName}"
+            android:layout_below="@id/empty_profile"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/empty_profile"
+            android:layout_toRightOf="@id/summonerName"
+            android:text="Test"
+            android:onClick="@{listener.onTest}"/>
     </com.treverthomas.summonerssearch.profile.ProfileView>
 
 </layout>
