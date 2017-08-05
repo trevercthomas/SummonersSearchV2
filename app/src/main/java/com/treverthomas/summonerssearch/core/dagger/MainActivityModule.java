@@ -2,7 +2,7 @@ package com.treverthomas.summonerssearch.core.dagger;
 
 import android.content.res.Resources;
 
-import com.treverthomas.summonerssearch.home.HomeActivity;
+import com.treverthomas.summonerssearch.home.MainActivity;
 
 import dagger.Module;
 import dagger.Provides;
@@ -15,9 +15,9 @@ import dagger.Provides;
 @Module
 public final class MainActivityModule {
 
-    private final HomeActivity activity;
+    private final MainActivity activity;
 
-    public MainActivityModule(final HomeActivity activity) {
+    public MainActivityModule(final MainActivity activity) {
         this.activity = activity;
     }
 

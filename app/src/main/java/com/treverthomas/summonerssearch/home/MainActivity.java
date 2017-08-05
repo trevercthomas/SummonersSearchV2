@@ -15,7 +15,7 @@ import com.treverthomas.summonerssearch.core.dagger.ViewComponentInjector;
 
 import javax.inject.Inject;
 
-public class HomeActivity extends AppCompatActivity implements ViewComponentInjector {
+public class MainActivity extends AppCompatActivity implements ViewComponentInjector {
 
     private MainActivityComponent component;
 

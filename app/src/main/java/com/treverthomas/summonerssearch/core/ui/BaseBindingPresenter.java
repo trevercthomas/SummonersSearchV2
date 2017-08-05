@@ -111,7 +111,7 @@ public abstract class BaseBindingPresenter<VM extends Observable> {
      * <p/>
      * This is where you would add subscriptions
      */
-    protected abstract void load();
+    public abstract void load();
 
     /**
      * Runs when detached from view model. Add any cleanup code here.

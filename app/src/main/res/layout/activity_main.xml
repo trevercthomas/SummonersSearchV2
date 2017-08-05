@@ -5,10 +5,13 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.treverthomas.summonerssearch.home.HomeActivity">
+    tools:context="com.treverthomas.summonerssearch.home.MainActivity">
 
     <include
         layout="@layout/home_view"/>
+
+    <!--Include Favorites View-->
+    <!--Include Search view-->
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

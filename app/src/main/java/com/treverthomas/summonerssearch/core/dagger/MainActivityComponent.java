@@ -1,7 +1,8 @@
 package com.treverthomas.summonerssearch.core.dagger;
 
-import com.treverthomas.summonerssearch.home.HomeActivity;
+import com.treverthomas.summonerssearch.home.MainActivity;
 import com.treverthomas.summonerssearch.home.HomeView;
+import com.treverthomas.summonerssearch.profile.ProfileView;
 
 import dagger.Component;
 
@@ -14,7 +15,9 @@ import dagger.Component;
         modules = {MainActivityModule.class})
 public interface MainActivityComponent {
 
-    void inject(HomeActivity mainActivity);
+    void inject(MainActivity mainActivity);
 
     void inject(HomeView homeView);
+
+    void inject(ProfileView profileView);
 }
